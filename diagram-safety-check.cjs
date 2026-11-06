@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict'),T=require('./dist/terminal-engine.js');
+const dist=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);let checked=0;
+for(const g of Object.keys(T.ENDS))for(const dir of ['in','out'])for(let p=1;p<=8;p++){const d=T.routeDef(g,dir,p);assert.equal(d.valid,T.validPlatforms(g,dir).includes(p));if(!d.valid)continue;checked++;assert.equal(new Set(d.paths).size,d.paths.length);let ends=[T.edges[d.paths[0]].a,T.edges[d.paths[0]].b];for(const id of d.paths.slice(1)){const e=T.edges[id];assert(e,id);const next=[];for(const v of ends){if(dist(v,e.a)<=25)next.push(e.b);if(dist(v,e.b)<=25)next.push(e.a);}assert(next.length,d.id+' disconnected at '+id);ends=next;}for(const id of Object.keys(d.req))assert(T.points[id]);if(d.end==='W'&&g!=='H')assert(d.paths.every(id=>!id.startsWith('R')));}
+assert.equal(checked,33);
+const ac=T.routeDef('CE','out',1),b3=T.routeDef('BE','out',3),b4=T.routeDef('BE','in',4);
+assert(ac.valid);assert(ac.resources.includes('DIAMOND_1')&&ac.resources.includes('DIAMOND_2'));assert(T.conflict(ac,b3));assert(T.conflict(ac,b4));assert(!T.conflict(b3,b4));assert(!T.routeDef('CE','out',3).valid);assert(!T.routeDef('BE','out',1).valid);assert(!T.routeDef('AE','out',6).valid);
+assert.equal(ac.req['101'],1);assert.equal(ac.req['102'],1);assert.equal(ac.req['103'],1);assert(!ac.paths.includes('R_A2_EXIT'));assert(!ac.paths.includes('R_103N'));assert(!ac.paths.includes('R_B3_W'));assert(T.conflict(T.routeDef('BE','in',3),T.routeDef('BE','out',4)));assert(T.routeDef('AW','in',3).valid===false);
+for(const st of T.stages)if(st.type==='paired')assert.equal(T.points[st.id].members.length,2);
+const s=new T.Station(5);s.running=true;for(const[k,v]of Object.entries(ac.req))s.points[k].value=v;assert(s.set('CE','out',1).ok);assert.equal(s.set('BE','out',3).ok,false);assert.equal(s.set('BE','in',4).ok,false);assert.equal(s.togglePoint('102').ok,false);s.lever('CE','out',1);assert.equal(s.pointLocks('102').length,0);
+console.log('PASS: 33 connected routes; no interchange at diamonds; independent B up/down routes; X1/X2 mutual exclusion; exact crossover paths; paired machines and point locking.');

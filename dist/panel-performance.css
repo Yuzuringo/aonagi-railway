@@ -1,0 +1,8 @@
+/* Point machines change indication only after position proof. */
+.console .rotor.point .handle,
+.console .rotor.point .disc,
+.console .switchblade {
+ transition:none!important;
+ animation:none!important;
+}
+.console .rotor.point.moving .handle { animation:none!important; }
