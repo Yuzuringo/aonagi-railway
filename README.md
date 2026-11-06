@@ -44,7 +44,11 @@ GitHub Actionsでも、更新とプルリクエストの際に同じチェック
 
 ## 公開サイトへの反映
 
-このGitHubリポジトリは更新用のソース管理先です。現在のChatGPT Sites公開サイトへの自動反映は設定していません。GitHubで変更しただけでは公開サイトは変わりません。公開する際は、このリポジトリの最新版を使ってSites側で更新・公開します。
+GitHub Pages用の自動公開設定を同梱しています。リポジトリの Settings → Pages → Build and deployment → Source で GitHub Actions を選び、Actions → Publish game to GitHub Pages → Run workflow を実行してください。以降はmainへの更新時にチェックを通過してからゲーム本体のdist/を公開します。
+
+公開先は `https://yuzuringo.github.io/aonagi-railway/` です（Pagesの有効化・初回公開成功後に利用可能）。トップページから4駅のゲームを選択できます。READMEは公開対象に含めません。GitHub Freeの場合はPublicリポジトリが必要です。PrivateのままPagesを使う場合は対応する有料プランが必要です。
+
+現在のChatGPT Sites公開サイトは別の公開先です。GitHub Pagesの更新はChatGPT Sitesには自動反映しません。
 
 別の静的ホスティングにも `dist/` を配置できます。`/AOBA`・`/SHIOMI-CENTRAL`・`/SHIN-NAGIHARA` を対応する `.html` に解決できる設定が必要です。元の `/station`・`/terminal` 用の転送ページも同梱しています。
 
