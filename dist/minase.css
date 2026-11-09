@@ -2,3 +2,5 @@
 .minase-page .terminal-sidebar{display:block}.minase-diagram{min-width:0}.minase-page .terminal-sidebar h2{white-space:nowrap}.minase-page .terminal-sidebar h3{margin-top:22px}
 
 .minase-page .soundbar{gap:14px}.minase-page .approachgroup{gap:8px}.minase-page .number-cells{max-width:600px;flex:1;grid-template-columns:repeat(4,minmax(55px,1fr))}.minase-page .consolehead{padding:15px 20px 0}.minase-page .block-status{position:relative;font-family:Consolas,Meiryo,monospace;font-size:10px;color:#bdd4cf;letter-spacing:.4px}.minase-page .consolefoot{padding-left:25px}.minase-page .console .cabinet-signature{font-size:9px}.minase-page .console .equipment-plate-text{font-size:12px}.minase-page .soundsettings input{width:85px}@media(max-width:750px){.minase-page .approachaudio{display:grid;grid-template-columns:1fr;width:100%}.minase-page .approachgroup{justify-content:space-between;gap:7px}.minase-page .number-cells{max-width:none}.minase-page .number-indicator{gap:10px}.minase-page .soundbar{padding:12px}}
+
+.minase-page .track-control[data-lever="33"] .rotor-label{top:100px}

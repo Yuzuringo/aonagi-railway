@@ -22,9 +22,13 @@ class Station{
  trainAt(loc){return this.trains.find(t=>t.loc===loc&&!t.gone)||this.trains.find(t=>this.occupied(t).includes(loc))}
  moveTrain(t,loc,routeId){t.tail=t.loc;t.tailRoute=t.route||routeId;t.tailUntil=this.time+2;t.loc=loc;}
  route(id){return this.routes.find(r=>r.id===id)}
- blockAspect(side,direction){if(direction==='in'){if(this.trainAt(side+'I'))return ASPECTS.R;return ['R','YY'].includes(this.signalAt(side+'-in').code)?ASPECTS.Y:ASPECTS.G;}if(this.trainAt(side+'AO'))return ASPECTS.R;const blocks=this.lineBlocks(side);return blocks[1]?ASPECTS.Y:ASPECTS.G;}
+ arrivalHandle(side){return Object.keys(this.handles).find(id=>this.handles[id]&&id.startsWith(side+'-in-'))||null;}
+ arrivalRoute(side){return this.routes.find(r=>r.side===side&&r.dir==='in')||null;}
+ arrivalSelection(side){const choices=[1,2,3,4].map(p=>routeDef(side,'in',p)).filter(d=>Object.entries(d.req).every(([id,value])=>{const point=this.points[id];return point&&!point.moving&&point.value===value&&(!point.pair||point.ends.every(end=>end===value));}));return choices.length===1?choices[0]:null;}
+ arrivalLever(side){const held=this.arrivalHandle(side);if(held)return this.lever(side,'in',+held.split('-')[2]);const d=this.arrivalSelection(side);if(!d)return this.log('転てつ位置未照査：'+(side==='W'?'西方':'東方')+'場内の進路を1つに選別できません。白テコの位置と転換完了を確認してください。');return this.lever(side,'in',d.p);}
+ blockAspect(side,direction){if(direction==='in'){if(this.trainAt(side+'I'))return ASPECTS.R;return ['R','YY'].includes(this.signalAt(side+'-in').code)?ASPECTS.Y:ASPECTS.G;}if(this.trainAt(side+'AO')||this.lineBlocks(side)[0])return ASPECTS.R;const blocks=this.lineBlocks(side);return blocks[1]?ASPECTS.Y:ASPECTS.G;}
  lineBlocks(side){return [0,1,2].map(n=>this.ahead[side].find(t=>this.time-t.time>=n*8&&this.time-t.time<(n+1)*8)||null)}
- signalAspect(route){const r=typeof route==='string'?this.route(route):route;if(!r||!r.green||r.stage!==-1)return ASPECTS.R;if(r.dir==='out'){const blocks=this.lineBlocks(r.side);if(blocks[0])return ASPECTS.R;if(r.cross||blocks[1])return ASPECTS.YY;if(r.p===1||r.p===4||blocks[2])return ASPECTS.Y;return ASPECTS.G;}if(r.cross)return ASPECTS.YY;if(r.p===1||r.p===4)return ASPECTS.Y;const next=this.route((r.side==='W'?'E':'W')+'-out-'+r.p);return this.signalAspect(next).code==='G'?ASPECTS.G:ASPECTS.Y;}
+ signalAspect(route){const r=typeof route==='string'?this.route(route):route;if(!r||!r.green||r.stage!==-1)return ASPECTS.R;if(r.dir==='out'){const blocks=this.lineBlocks(r.side);if(this.trainAt(r.target))return ASPECTS.R;if(r.cross||this.trainAt(r.side+'AO')||blocks[0])return ASPECTS.YY;if(r.p===1||r.p===4||blocks[1]||blocks[2])return ASPECTS.Y;return ASPECTS.G;}if(r.cross)return ASPECTS.YY;if(r.p===1||r.p===4)return ASPECTS.Y;const next=this.route((r.side==='W'?'E':'W')+'-out-'+r.p);return this.signalAspect(next).code==='G'?ASPECTS.G:ASPECTS.Y;}
  signalAt(id){if(id.endsWith('-in'))return this.signalAspect(this.routes.find(r=>r.side===id[0]&&r.dir==='in'&&r.green));return this.signalAspect(id)}
 
  throatLocked(r){return !r.throatReleased}
@@ -34,7 +38,7 @@ class Station{
  const held=Object.entries(this.handles).find(([id,on])=>{if(!on)return false;if(id===def.id)return true;const[side,dir,p]=id.split('-');return routeConflict(routeDef(side,dir,+p),def)});if(held)return '競合テコ '+held[0]+' を定位Nに復位してください。';
  const conflict=this.routes.find(r=>routeConflict(r,def,r.throatReleased));if(conflict)return '競合進路 '+conflict.id+' が構成中です。';
  if(this.trainAt(def.target))return '進路の終端区間 '+def.target+' が在線中。';
- if(def.dir==='out'&&this.lineBlocks(def.side)[0])return '出発先の第一閉塞が在線中。';
+
  if(def.dir==='out'){const t=this.trainAt(def.origin);if(!t&&def.p!==2&&def.p!==3)return'この番線に出発列車がいません。';if(t){if(t.to!==def.side)return '列車の運転方向が不一致。'+(t.to==='E'?'東方':'西方')+'出発が指定されています。';if(t.hold&&!this.records[t.hold]?.dep)return '運転指令：'+t.hold+'列車の先発を待ってください（待避）。';}}
  const bad=Object.entries(def.req).find(([k,v])=>this.points[k].moving||this.points[k].value!==v||(this.points[k].pair&&this.points[k].ends.some(end=>end!==v)));if(bad)return '転てつ位置未照査：'+pointName(bad[0])+'を'+(bad[1]?'反位R':'定位N')+'へ（転換中は設定不可）。';return null;}
 

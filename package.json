@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "description": "青凪電鉄・4駅の鉄道連動盤ゲーム",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node scripts/serve.cjs",
-    "test": "node boundary-check.cjs && node clock-input-check.cjs && node sound-check.cjs && node minase-check.cjs && node independent-lines-check.cjs && node overtime-check.cjs && node diagram-safety-check.cjs"
+    "test": "node boundary-check.cjs && node clock-input-check.cjs && node sound-check.cjs && node minase-check.cjs && node independent-lines-check.cjs && node overtime-check.cjs && node diagram-safety-check.cjs && node aoba-common-arrival-check.cjs && node minase-common-arrival-check.cjs && node following-block-check.cjs && node difficulty-blocks-check.cjs && node signalling-check.cjs"
   }
 }

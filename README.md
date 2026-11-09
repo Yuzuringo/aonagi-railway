@@ -2,7 +2,7 @@
 
 架空の鉄道会社「青凪電鉄」の連動盤で、列車の交換・待避・折り返し・直通運転を扱うブラウザーゲームです。
 
-[公開サイト](https://aonagi-railway.esteemedolive1.chatgpt.site/)
+[ゲームをプレイ（GitHub Pages）](https://yuzuringo.github.io/aonagi-railway/) ／ [ChatGPT側サイト](https://aonagi-railway.esteemedolive1.chatgpt.site/)
 
 ## 収録駅
 

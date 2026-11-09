@@ -1,0 +1,9 @@
+.console .track-control{overflow:visible;pointer-events:none}
+.console .track-control .rotor-wrap{position:relative;width:65px!important;pointer-events:none}
+.console .track-control .rotor{width:65px;height:62px;padding:0;pointer-events:none}
+.console .track-control .rotor .base,.console .track-control .rotor .handle{pointer-events:auto}
+.console .track-control .rotor .disc{pointer-events:none}
+.console .track-control .rotor-label{position:absolute;top:62px;left:-12px;width:89px;pointer-events:none;white-space:normal;font-size:8px;line-height:1.25;text-align:center}
+.console .track-control .rotor-label b{font-size:9px!important;line-height:1.25}
+.console .track-control .label-above .rotor-label{top:-18px}
+.console .track-control .rotor:focus-visible{outline:2px solid #f0df91;outline-offset:1px}
