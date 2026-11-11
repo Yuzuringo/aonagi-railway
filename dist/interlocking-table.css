@@ -1,0 +1,53 @@
+.station-interlocking {
+  margin: 24px 0 0;
+  min-width: 0;
+}
+.station-interlocking > summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid #167d8d80;
+  border-radius: 5px;
+  background: #fff;
+  color: #071b2b;
+  cursor: pointer;
+  list-style: none;
+}
+.station-interlocking > summary::-webkit-details-marker { display: none; }
+.station-interlocking > summary::before { content: '+'; margin-right: 8px; }
+.station-interlocking[open] > summary::before { content: '−'; }
+.station-interlocking .interlocking-close,
+.station-interlocking[open] .interlocking-open { display: none; }
+.station-interlocking[open] .interlocking-close { display: inline; }
+.station-interlocking > h2 { margin: 14px 0 8px; font-size: 16px; }
+.interlocking-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid #bed4da;
+  background: #fff;
+}
+.station-interlocking table {
+  width: 100%;
+  min-width: 880px;
+  border-collapse: collapse;
+  color: #071b2b;
+  font-size: 12px;
+}
+.station-interlocking th,
+.station-interlocking td {
+  padding: 6px 8px;
+  border: 1px solid #bed4da;
+  text-align: left;
+  vertical-align: top;
+}
+.station-interlocking thead th {
+  position: static;
+  background: #e7f2f4;
+  color: #071b2b;
+  white-space: nowrap;
+}
+.station-interlocking tbody th { position: static; background: #f4f8f9; color: #071b2b; }
+.station-interlocking .destination-name { font-weight: normal; }
+.station-interlocking .point-mark { display: inline-block; margin: 0 .12em; }
+.station-interlocking .point-ring { border: 1px solid currentColor; border-radius: 1em; padding: 0 .25em; }
