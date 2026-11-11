@@ -1,1 +1,79 @@
 @media(max-width:600px){.levergrid{grid-template-columns:repeat(2,minmax(0,1fr))}.leverunit{min-width:0}.leverbank{padding:14px}.badge{display:none}header small{font-size:10px}.row button{max-width:100%}.stats{font-size:16px}.columns{min-width:0}.panel{min-width:0}}
+
+/* Keep the panel and timetable scrollable inside the page on narrow screens. */
+@media (max-width: 750px) {
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  main, header > *, .toolbar > *, .brief > *, .soundbar > *,
+  .layout > *, .minase-layout > *, .terminal-layout > *, .boundary-layout > *,
+  .terminal-lower > *, .number-cells > *, .terminal-numbers > * {
+    min-width: 0;
+  }
+  header > .identity { width: 100%; flex-wrap: wrap; }
+  header > .toolbar { width: 100%; justify-content: flex-start; }
+  .toolbar button, .toolbar select, .station-select { min-height: 38px; }
+  .layout, .minase-layout, .terminal-layout, .boundary-layout, .terminal-lower {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .diagramwrap, .tablewrap {
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .diagramwrap > svg {
+    display: block;
+    height: auto;
+    flex: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+  #diagram { aspect-ratio: 1400 / 740; }
+  #minase-diagram { aspect-ratio: 1350 / 520; }
+  #terminal-diagram { aspect-ratio: 2770 / 1230; }
+  #boundary-diagram { aspect-ratio: 1900 / 820; }
+  .diagramwrap > svg.fit { min-width: 0; }
+  .number-cells { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .minase-page .number-cells { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .boundary-page .number-cells { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .terminal-numbers { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .soundbar .approachaudio { width: 100%; grid-template-columns: minmax(0, 1fr); }
+  .soundbar .approachgroup { flex-wrap: wrap; }
+  .soundbar .approachgroup button { white-space: normal; }
+  .terminal-network, .boundary-network, .resultactions { flex-wrap: wrap; }
+  .modechoices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .modechoices button { min-width: 0; padding-inline: 8px; }
+
+  .modal, .terminal-page .modal {
+    padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+      max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .modal .modalbox {
+    width: 100%;
+    min-width: 0;
+    margin: auto;
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - max(12px, env(safe-area-inset-top)) - max(12px, env(safe-area-inset-bottom)));
+    overscroll-behavior: contain;
+  }
+  .aoba-tutorial-intro {
+    max-height: calc(100dvh - 32px);
+    overflow: auto;
+  }
+  .aoba-tutorial-guide {
+    left: max(12px, env(safe-area-inset-left));
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+    width: auto;
+    max-height: 36vh;
+    max-height: 36dvh;
+  }
+}
+
+.diagramwrap > svg { height: auto; }

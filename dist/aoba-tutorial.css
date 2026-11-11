@@ -1,0 +1,50 @@
+.aoba-tutorial-intro {
+  width: min(440px, calc(100% - 32px));
+  box-sizing: border-box;
+  border: 1px solid #aacdd4;
+  border-radius: 12px;
+  padding: 24px;
+  background: #fff;
+  color: #071b2b;
+  box-shadow: 0 16px 48px #071b2b44;
+}
+.aoba-tutorial-intro::backdrop { background: #071b2b99; }
+.aoba-tutorial-intro h2, .aoba-tutorial-guide h2 { margin: 0; font-size: 18px; }
+.aoba-tutorial-intro p, .aoba-tutorial-guide p { margin: 10px 0 14px; line-height: 1.6; }
+.tutorial-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.aoba-tutorial-guide {
+  position: fixed;
+  z-index: 100;
+  box-sizing: border-box;
+  left: var(--guide-left, max(12px, calc(50% - 180px)));
+  top: var(--guide-top, auto);
+  bottom: 16px;
+  width: min(360px, calc(100% - 24px));
+  height: max-content;
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
+  padding: 14px 16px;
+  border: 2px solid #167d8d;
+  border-radius: 10px;
+  background: #fff;
+  color: #071b2b;
+  box-shadow: 0 8px 24px #071b2b55;
+}
+.aoba-tutorial-guide small { color: #167d8d; }
+.aoba-tutorial-ring {
+  position: fixed;
+  z-index: 99;
+  box-sizing: border-box;
+  pointer-events: none;
+  border: 3px solid #ffe984;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px #071b2b, 0 0 14px 7px #ffe98488;
+  animation: aoba-tutorial-pulse 1.3s ease-in-out infinite alternate;
+}
+@keyframes aoba-tutorial-pulse {
+  from { opacity: .45; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aoba-tutorial-ring { animation: none; }
+}
