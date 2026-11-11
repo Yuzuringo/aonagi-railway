@@ -50,7 +50,7 @@
   let timer;
   let target;
   let instructionKey;
-  const lever = id => document.querySelector('.track-control[data-lever="' + id + '"] button');
+  const lever = id => document.querySelector('.svg-panel-control[data-lever="' + id + '"]');
   const pendingId = () => (type === 'terminal' ? pendingOrigin : pending)?.id;
   const remember = () => { try { localStorage.setItem(storageKey, '1'); } catch {} };
 
@@ -111,7 +111,7 @@
     guide.style.removeProperty('--guide-left');
     guide.style.removeProperty('--guide-top');
     if (!target) return;
-    const rect = (target.querySelector('.base') || target).getBoundingClientRect();
+    const rect = (target.querySelector('.svg-control-hit, .base') || target).getBoundingClientRect();
     Object.assign(ring.style, {
       left: rect.left - 7 + 'px', top: rect.top - 7 + 'px',
       width: rect.width + 14 + 'px', height: rect.height + 14 + 'px'
@@ -126,7 +126,8 @@
 
   function update() {
     const action = tutorialAction(station, engine.routeDef, type);
-    const [button, heading, copy] = instruction(action);
+    const [control, heading, copy] = instruction(action);
+    const button = window.RailSvgControls.visual(control);
     paused = action.kind !== 'wait';
     if (action.train && selected !== action.train.id) {
       selected = action.train.id;
@@ -202,7 +203,7 @@
   document.addEventListener('click', event => {
     if (!saved) return;
     const control = event.target.closest('button');
-    if (!control || control === target) return;
+    if (!control || window.RailSvgControls.visual(control) === target) return;
     if (control === newShift || control === pauseButton ||
         control.matches('.rotor, .destination, #boundary-handover')) {
       event.preventDefault();

@@ -7,3 +7,11 @@
 .console .track-control .rotor-label b{font-size:9px!important;line-height:1.25}
 .console .track-control .label-above .rotor-label{top:-18px}
 .console .track-control .rotor:focus-visible{outline:2px solid #f0df91;outline-offset:1px}
+
+/* Native SVG controls share the rail geometry on all browsers. */
+.svg-panel-control { cursor: pointer; }
+.svg-panel-control[aria-disabled="true"] { cursor: default; }
+.svg-panel-control:focus-visible .svg-control-hit {
+  stroke: #ffe984;
+  stroke-width: 2;
+}
